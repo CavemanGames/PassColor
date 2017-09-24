@@ -9,7 +9,8 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine"
+				"Engine",
+				"Paper2D"
 			]
 		}
 	],
@@ -46,5 +47,14 @@
 			"Name": "SteamVR",
 			"Enabled": false
 		}
+	],
+	"TargetPlatforms": [
+		"Android",
+		"AllDesktop",
+		"HTML5",
+		"IOS",
+		"MacNoEditor",
+		"LinuxNoEditor",
+		"WindowsNoEditor"
 	]
 }
