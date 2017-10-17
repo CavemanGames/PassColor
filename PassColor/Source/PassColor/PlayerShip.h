@@ -26,6 +26,7 @@ public:
 	void Move_Right(float AxisValue);
 	void TouchMoved(ETouchIndex::Type FingerIndex, FVector Location);
 	void TouchEnd(ETouchIndex::Type FingerIndex, FVector Location);
+	void OnRestart();
 
 	FVector CurrentVelocity;
 	FVector CurrentDirection;
@@ -34,4 +35,9 @@ public:
 		float Speed = 10.0f;
 
 	bool bTouch = false;
+
+	bool Died;
+
+	UFUNCTION(BlueprintCallable)
+		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

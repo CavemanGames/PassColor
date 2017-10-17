@@ -92,3 +92,30 @@ void APlayerShip::TouchEnd(ETouchIndex::Type FingerIndex, FVector Location)
 		bTouch = false;
 	}
 }
+
+void APlayerShip::OnRestart()
+{
+	/*if (Died)
+	{
+		UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+	}*/
+}
+
+void APlayerShip::OnOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	/*if (OtherActor->IsA(AColorToSpawn::StaticClass()))
+	{
+		this->SetActorHiddenInGame(true);
+	}
+
+	if (OtherActor->IsA(AColorToSpawn::StaticClass()))
+	{
+		//Died = true;
+
+		this->SetActorHiddenInGame(true);
+
+		((ASpaceShooterGameMode*)GetWorld()->GetAuthGameMode())->OnGameOver();
+
+		UGameplayStatics::SetGamePaused(GetWorld(), true);
+	}//*/
+}
