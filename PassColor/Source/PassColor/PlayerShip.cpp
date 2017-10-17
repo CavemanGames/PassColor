@@ -2,12 +2,17 @@
 
 #include "PlayerShip.h"
 #include "Kismet/GameplayStatics.h"
+#include "ColorBalls.h"
+#include "PassColorGameMode.h"
+#include "PaperSpriteComponent.h"
+#include "Engine.h"
 
 #define OUT
 
 APlayerShip::APlayerShip()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	//RootBox = CreateDefaultSubobject<UBoxComponent>(TEXT("RootComponent"));
 }
 
 void APlayerShip::BeginPlay()
@@ -98,24 +103,75 @@ void APlayerShip::OnRestart()
 	/*if (Died)
 	{
 		UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
-	}*/
+	}//*/
 }
 
-void APlayerShip::OnOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+void APlayerShip::ReceiveActorBeginOverlap(AActor * OtherActor)
 {
-	/*if (OtherActor->IsA(AColorToSpawn::StaticClass()))
+	//Super::ReceiveActorBeginOverlap(OtherActor);
+	if (OtherActor->IsA(AColorBalls::StaticClass()))
 	{
-		this->SetActorHiddenInGame(true);
+		AColorBalls* Ball = (AColorBalls*)OtherActor;
+		
+		GetColorOfBall(Ball->SetedSpriteName);
+
+		RedColor = FMath::Clamp<float>(RedColor, 0.0f, 1.0f);
+
+		GreenColor = FMath::Clamp<float>(GreenColor, 0.0f, 1.0f);
+
+		BlueColor = FMath::Clamp<float>(BlueColor, 0.0f, 1.0f);
+		
+		OtherActor->Destroy();
+
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("RedColor:%f - GreenColor:%f - BlueColor:%f"), RedColor, GreenColor, BlueColor));
+		}
+		//UE_LOG(LogTemp, Warning, TEXT("Colided to: %s!!!!!!!"), *ColorName);
 	}
+}
 
-	if (OtherActor->IsA(AColorToSpawn::StaticClass()))
+void APlayerShip::GetColorOfBall(FString ColorName)
+{
+	FString Color = ColorName;
+
+	if (Color == ("B_color_Sprite"))
 	{
-		//Died = true;
-
-		this->SetActorHiddenInGame(true);
-
-		((ASpaceShooterGameMode*)GetWorld()->GetAuthGameMode())->OnGameOver();
-
-		UGameplayStatics::SetGamePaused(GetWorld(), true);
-	}//*/
+		BlueColor += 0.1f;
+	}
+	else if (Color == ("G_color_Sprite"))
+	{
+		GreenColor += 0.1f;
+	}
+	else if (Color == ("R_color_Sprite"))
+	{
+		RedColor += 0.1f;
+	}
+	else if (Color == ("GB_color_Sprite"))
+	{
+		GreenColor += 0.1f;
+		BlueColor += 0.1f;
+	}
+	else if (Color == ("RB_color_Sprite"))
+	{
+		RedColor += 0.1f;
+		BlueColor += 0.1f;
+	}
+	else if (Color == ("RG_color_Sprite"))
+	{
+		RedColor += 0.1f;
+		GreenColor += 0.1f;
+	}
+	else if (Color == ("RGB_colors_Sprite"))
+	{
+		RedColor += 0.1f;
+		GreenColor += 0.1f;
+		BlueColor += 0.1f;
+	}
+	else if (Color == ("RGB_discolors_Sprite"))
+	{
+		RedColor -= 0.1f;
+		GreenColor -= 0.1f;
+		BlueColor -= 0.1f;
+	}
 }

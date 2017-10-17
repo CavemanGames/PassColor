@@ -12,6 +12,8 @@ void APassColorGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	TimeResistenceWall = TimeToSpawnWall;
+
+	AddMenuHUD();
 }
 
 void APassColorGameMode::Tick(float DeltaSeconds)
@@ -32,7 +34,7 @@ void APassColorGameMode::Tick(float DeltaSeconds)
 
 			if (World)
 			{
-				FVector Location = FVector(0.0f, 0.f, 1100.0f);
+				FVector Location = FVector(0.0f, 0.0f, 1000.0f);
 
 				World->SpawnActor<AResistenceWall>(ResistenceWallBlueprint, Location, FRotator::ZeroRotator);
 				bIsWallSpawned = true;
@@ -64,7 +66,7 @@ void APassColorGameMode::Tick(float DeltaSeconds)
 
 				if (World)
 				{
-					FVector Location = FVector(1200.0f, FMath::RandRange(0.f, 500.0f), 71.0f);
+					FVector Location = FVector(FMath::RandRange(-470.f, 470.0f), 10.0f, 1000.0f);
 
 					World->SpawnActor<AColorBalls>(ColorBallsBlueprint, Location, FRotator::ZeroRotator);
 				}
@@ -83,7 +85,14 @@ void APassColorGameMode::IncrementScore(int Value)
 
 void APassColorGameMode::AddGameHUD()
 {
+	ChangeMenuWidget(GameWidgetClass);
+	bIsMenuOpen = false;
+}
 
+void APassColorGameMode::AddMenuHUD()
+{
+	ChangeMenuWidget(MainMenuWidgetClass);
+	bIsMenuOpen = true;
 }
 
 void APassColorGameMode::OnGameOver()

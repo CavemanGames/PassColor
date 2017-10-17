@@ -26,6 +26,12 @@ public:
 	UPROPERTY(EditAnywhere)
 		class UShapeComponent* RootBox;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UPaperSpriteComponent* SpriteColor;
+
 	UPROPERTY(EditAnywhere)
 		float Speed = -200.0f;
+
+	UPROPERTY(BlueprintReadWrite)
+		FString SetedSpriteName = "";
 };

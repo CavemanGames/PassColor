@@ -42,6 +42,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UMGGame")
 		void AddGameHUD();
 
+	UFUNCTION(BlueprintCallable, Category = "UMGGame")
+		void AddMenuHUD();
+
 	void OnGameOver();
 
 	UFUNCTION(BlueprintCallable, Category = "UMGGame")
@@ -60,7 +63,7 @@ public:
 		int Score = 0;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GameSetup")
-		bool bIsMenuOpen = false;
+		bool bIsMenuOpen = true;
 
 	bool bSpawnColor = true;
 

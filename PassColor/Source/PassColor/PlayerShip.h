@@ -36,8 +36,22 @@ public:
 
 	bool bTouch = false;
 
-	bool Died;
+	bool Died = true;
 
-	UFUNCTION(BlueprintCallable)
-		void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UPROPERTY(EditAnywhere)
+		class UShapeComponent* RootBox;
+	
+	UFUNCTION()
+		void ReceiveActorBeginOverlap(AActor* OtherActor);
+
+	UPROPERTY(BlueprintReadWrite, Category = "PlayerColor")
+		float RedColor = 0.0f;
+
+	UPROPERTY(BlueprintReadWrite, Category = "PlayerColor")
+		float BlueColor = 0.0f;
+
+	UPROPERTY(BlueprintReadWrite, Category = "PlayerColor")
+		float GreenColor = 0.0f;
+
+	void GetColorOfBall(FString ColorName);
 };
